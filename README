@@ -1,0 +1,4 @@
+openclscan - scan for OpenCL devices and report capabilities.
+Based on the OpenCL 1.0.48 Specification.
+
+Copyright 2010 Jeff Buck.
