@@ -290,6 +290,9 @@ int queryCLDevices(cl_device_type deviceType, int verbose, int rawOutput)
 		}
 	}
 
+	if (!verbose && !rawOutput)
+		printf("\nSee detailed device information by running with the -v option.\n\n");
+
 	return 0;
 }
 
@@ -297,11 +300,11 @@ int queryCLDevices(cl_device_type deviceType, int verbose, int rawOutput)
 void usage(char* name)
 {
 	printf("usage: %s [-acgrv?]\n", name);
-	printf("  -a          Show all devices [default]\n");
-	printf("  -c          Only show CPU devices\n");
-	printf("  -g          Only show GPU devices\n");
-	printf("  -r          Report in raw form with no headers\n");
-	printf("  -v          Verbose report - show all clGetDeviceInfo() parameter values\n");
+	printf("  -a     Show all devices [default]\n");
+	printf("  -c     Only show CPU devices\n");
+	printf("  -g     Only show GPU devices\n");
+	printf("  -r     Report in raw form with no headers\n");
+	printf("  -v     Verbose report - show all clGetDeviceInfo() parameter values\n");
 }
 
 

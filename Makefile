@@ -1,31 +1,20 @@
-#######################################################################
-#
-#  -E stops compilation after precompiling
-#  -S stops compilation after assembling
-#  -c stops compilation after compiling (no link)
-#
-#  -v prints commands executed to run compiles
-#######################################################################
-CC				= clang
-#COPTS			= -std=c99 -O3 -Wall
-#COPTS			= -std=c99 -g -Wall
-COPTS			= -g 
-#CPU_OPTS		= -mcpu=powerpc64 -faltivec
-
-# LIBS			= -lmisc -lm -lvga
+ROOTNAME		= openclscan
 LIBS			= -framework OpenCL
 
-CFLAGS			= $(COPTS) $(CPU_OPTS)
-ROOTNAME		= openclscan
+CC				= clang
+COPTS			= -g 
 
-#CFLAGS		= $(COPTS) -I$(XINCLUDE)
-#LDFLAGS		= -L. 
+#CC				= gcc
+#COPTS			= -std=c99 -O3 -Wall
+#COPTS			= -std=c99 -g -Wall
+
+CFLAGS			= $(COPTS)
+
+#######################################################################
 
 SRC				= $(ROOTNAME).c
 OBJS			= $(ROOTNAME).o
 PROGS			= $(ROOTNAME)
-
-#######################################################################
 
 default: $(PROGS)
 
