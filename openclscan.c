@@ -19,39 +19,40 @@ const int MAX_DEVICE_COUNT = 32;
 		printf(" " #bit); \
 }
 
+static char g_s[1024];
+static char g_format[16];
+static char g_formatString[256];
+
 #define CL_DEV_INFO_P(device, param, type, desc) \
 { \
 	int r; \
 	size_t size; \
 	type	v##param; \
-	char	s[1024]; \
-	char	format[16]; \
-	char	formatString[256]; \
 	if (!strcmp(#type, "char")) \
-		r = clGetDeviceInfo(device, param, sizeof(s), s, &size); \
+		r = clGetDeviceInfo(device, param, sizeof(g_s), g_s, &size); \
 	else \
 		r = clGetDeviceInfo(device, param, sizeof(v##param), &v##param, &size); \
 	\
 	if (!strcmp(#type, "cl_uint")) \
-		strcpy(format, "u"); \
+		strcpy(g_format, "u"); \
 	else if (!strcmp(#type, "size_t")) \
-		strcpy(format, "zd"); \
+		strcpy(g_format, "zd"); \
 	else if (!strcmp(#type, "cl_ulong")) \
-		strcpy(format, "llu"); \
+		strcpy(g_format, "llu"); \
 	else if (!strcmp(#type, "cl_bool")) \
-		strcpy(format, "s"); \
+		strcpy(g_format, "s"); \
 	else if (!strcmp(#type, "char")) \
-		strcpy(format, "s"); \
+		strcpy(g_format, "s"); \
 	\
-	sprintf(formatString, "%%-35s: %%%s\n", format); \
+	sprintf(g_formatString, "%%-35s: %%%s\n", g_format); \
 	if (!strcmp(#type, "cl_bool")) \
-		printf(formatString, desc, (v##param == CL_TRUE) ? "Yes" : "No"); \
+		printf(g_formatString, desc, (v##param == CL_TRUE) ? "Yes" : "No"); \
 	else if (!strcmp(#type, "cl_ulong")) \
-		printf(formatString, desc, (v##param >> 20)); \
+		printf(g_formatString, desc, (v##param >> 20)); \
 	else if (!strcmp(#type, "char")) \
-		printf(formatString, desc, s); \
+		printf(g_formatString, desc, g_s); \
 	else \
-		printf(formatString, desc, v##param); \
+		printf(g_formatString, desc, v##param); \
 }
 
 int queryCLDevices(cl_device_type deviceType, int verbose, int rawOutput)
